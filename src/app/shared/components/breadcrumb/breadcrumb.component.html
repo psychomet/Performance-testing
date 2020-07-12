@@ -1,0 +1,14 @@
+
+
+
+<mat-toolbar color="primary" *ngIf="menuItems.length !== 0">
+  <div fxLayout="row" fxLayoutAlign="none center">
+    <button [routerLink]="['/']" mat-icon-button>
+      <mat-icon>home</mat-icon>
+    </button>
+    <ng-container *ngFor="let item of menuItems;let i = index">
+      <mat-icon>chevron_left</mat-icon>
+      <button [routerLink]="[item.url]" mat-button>{{item.label}}</button>
+    </ng-container>
+  </div>
+</mat-toolbar>

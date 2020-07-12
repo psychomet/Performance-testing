@@ -1,0 +1,44 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar class="example-toolbar" color="primary">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+      <div>
+        <button mat-icon-button fxHide.gt-sm="true" (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+        <button mat-button class="px-0" [routerLink]="'/'">
+          LOGO
+        </button>
+      </div>
+      <div *ngIf="!loggedIn">
+        <button mat-raised-button color="warn" class="mr-2" [routerLink]="'/user/auth/login'">ورود</button>
+      </div>
+      <button *ngIf="loggedIn &&  me" [matMenuTriggerFor]="appUserMenu" mat-button>
+        <span *ngIf="!mobileQuery.matches" class="mr-3">{{me?.data.user.first_name}} {{me?.data.user.last_name}}</span>
+      </button>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-menu #appUserMenu="matMenu">
+    <mat-list>
+    </mat-list>
+    <button [routerLink]="['/user']" mat-menu-item>
+      <mat-icon>account_circle</mat-icon>
+      پروفایل</button>
+    <button (click)="logout($event)" mat-menu-item><mat-icon>exit_to_app</mat-icon>
+      خروج</button>
+  </mat-menu>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content dir="ltr" fxLayout="column">
+      <app-breadcrumb fxHide.xs="true"></app-breadcrumb>
+      <router-outlet></router-outlet>
+      <app-footer class="mt-auto"></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+

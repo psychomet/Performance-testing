@@ -1,0 +1,31 @@
+<div class="container my-4">
+  <div fxLayout="row" fxLayoutAlign="center none">
+    <div fxFlex.gt-xs="33%">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>اطلاعات کاربر</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div fxLayout="column">
+            <mat-form-field appearance="fill">
+              <mat-label>نام</mat-label>
+              <input matInput [value]="user?.data.user.first_name" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>نام خانوادگی</mat-label>
+              <input matInput [value]="user?.data.user.last_name" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>ایمیل</mat-label>
+              <input matInput [value]="user?.data.user.email" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>شماره تلفن</mat-label>
+              <input matInput [value]="user?.data.user.mobile_number" readonly>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

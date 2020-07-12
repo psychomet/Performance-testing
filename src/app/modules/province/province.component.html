@@ -1,0 +1,58 @@
+<div class="container-fluid my-4">
+  <div fxLayout="row wrap" fxLayout.xs="column" dir="rtl" fxLayoutGap="15px grid">
+    <div fxFlex.gt-sm="25%">
+      <app-province-form (provinceUpdated)="this.dataSource.loadProvinces(1)"></app-province-form>
+    </div>
+    <div fxFlex.gt-sm="75%">
+      <mat-card>
+        <mat-card-header>استان ها</mat-card-header>
+        <mat-card-content>
+          <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+            <mat-spinner></mat-spinner>
+          </div>
+
+          <mat-table [dataSource]="dataSource"
+                     matSort matSortDisableClear>
+
+            <ng-container matColumnDef="position">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="has_label_on_mobile" data-label="شماره">{{element.id}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="en">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>انگلیسی</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="has_label_on_mobile" data-label="انگلیسی">{{element.title.en}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="fa">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>فارسی</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="has_label_on_mobile" data-label="فارسی">{{element.title.fa}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="created_at">
+              <mat-header-cell *matHeaderCellDef>تاریخ</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{appService.convertDateTime(element.created_at)}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="ctrl">
+              <mat-header-cell *matHeaderCellDef>ویرایش</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="has_label_on_mobile" data-label="ویرایش">
+                <button mat-icon-button [routerLink]="['/province/',element.id]">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+          </mat-table>
+
+          <mat-paginator [length]="dataSource.totalSubject.getValue()" [pageSize]="15"
+                         [pageSizeOptions]="[3, 5, 10]"></mat-paginator>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

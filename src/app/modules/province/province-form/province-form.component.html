@@ -1,0 +1,41 @@
+<form [formGroup]="stFormGroup" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{isEdit ? 'ویرایش استان' : 'ثبت استان'}}
+      </mat-card-title>
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.preventDefault()" class="mr-auto">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button type="submit" (click)="onSubmit()" mat-menu-item [disabled]="!stFormGroup.valid || isLoading">
+          <mat-icon>save_alt</mat-icon>
+          <span>ذخیره</span>
+        </button>
+        <button (click)="onReset()" mat-menu-item>
+          <mat-icon>cancel_presentation</mat-icon>
+          <span>لغو</span>
+        </button>
+      </mat-menu>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="column" dir="rtl">
+        <ng-container formGroupName="title">
+          <mat-form-field appearance="fill">
+            <mat-label>نام فارسی</mat-label>
+            <input matInput formControlName="fa" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>نام انگلیسی</mat-label>
+            <input matInput formControlName="en" required>
+          </mat-form-field>
+        </ng-container>
+        <mat-slide-toggle *ngIf="isEdit" formControlName="is_active" color="primary"></mat-slide-toggle>
+        <mat-form-field *ngIf="!isEdit" appearance="fill">
+          <mat-label>شماره کشور</mat-label>
+          <input matInput formControlName="country_id" required>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>
